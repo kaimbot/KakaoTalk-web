@@ -4,13 +4,11 @@ from datetime import datetime
 
 from app import app, socketio, mongo
 from app.routes.message import *
+from config import *
 
 
 def get_room_name(data):
-    url =  data['url']
-    base = data['base'] + '/chat/room/'
-    room = url.replace(base, '')
-    
+    room =  data['url'].replace(REDIRECT_URL + '/chat/room/', '')
     return room
 
 
@@ -51,9 +49,13 @@ def text(message):
         if msg != '\n' and msg != '':
             nickName = session['nickname']
             room_name = message['room']
+
             msg = msg.replace('\n', '')
-            
+                        
             print(room_name + ', ' + nickName + ', ' + msg)
+
+            room_name = room_name.replace('http://katalk.junghub.kr/chat/room/', '')
+
             emit('message', {
                 'name': nickName, 
                 'msg': msg,
