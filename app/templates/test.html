@@ -49,9 +49,7 @@
                 <div class="scrolling content" style="width: px;">
                     <div class="ui large comments">
                         <div class="ui log label">{{ date }}</div>
-                        {% for message in room['messages'] %}
-                            
-                            
+                        {% for message in room['messages'] %}  
                             {% if message['senders']['nickname'] != me['nickname'] %}
                             <div class="comment">
                                 <a class="avatar">
@@ -69,9 +67,16 @@
                                     </div>
                                 </div>
                             </div>
+                            {% if message['receivers']['view'] == False %}
+                            1
+                            {% endif %}
                             {% else %}
                             <div class="comment" style="text-align: right; margin-right: 20px;">
                                 <div class="content">
+                                    <!-- 1:1 채팅만 됨~~~ -->
+                                {% if message['receivers'][0]['view'] == False %}
+                                <a style="color: #ffee52; font-size: 12px;">1</a>
+                                {% endif %}
                                     <div class="metadata" style="margin-right: 10px;">
                                         <span class="date">18:18</span>
                                     </div>
