@@ -42,9 +42,18 @@ $(document).ready(function(){
         var $name_date = $('<div>').append($name, $metadata);
         
         if (nickName != name) {
-            var $text = $('<div class="ui left pointing label text">')
-                .append(message);
-        
+            // url주소가 아닐 경우
+            if (message.indexOf('http') == -1) {
+                var $text = $('<a class="ui left pointing label text">')
+                    .append(message);
+            }
+            // url주소일 경우
+            else {
+                var $text = $('<a class="ui left pointing label text" style="color: blue;" target="_blank">')
+                    .append(message);
+                $text.attr("href", message);
+            }
+                    
             var $content = $('<div class="content">')
                 .append($name_date, $text);
 
@@ -64,9 +73,18 @@ $(document).ready(function(){
             `).append($image, $content);
         }
         else {
-            var $text = $('<div class="ui right pointing label text" style="background-color: #ffee52">')
-                .append(message);
-    
+            // url주소가 아닐 경우
+            if (message.indexOf('http') == -1) {
+                var $text = $('<a class="ui right pointing label text" style="background-color: #ffee52;">')
+                    .append(message);
+            }
+            // url주소일 경우
+            else {
+                var $text = $('<a class="ui right pointing label text" style="background-color: #ffee52; color: blue;" target="_blank">')
+                    .append(message);
+                $text.attr("href", message)
+            }
+                
             var $content = $('<div class="content">')
                 .append($metadata, $text);
 

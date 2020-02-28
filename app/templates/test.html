@@ -62,23 +62,39 @@
                                             <span class="date">18:18</span>
                                         </div>
                                     </div>
-                                    <div class="ui left pointing label text">
+                                    <!-- url 주소일 아닐 경우 -->
+                                    {% if not 'http' in message['content'] %}
+                                    <a class="ui left pointing label text">
                                         {{ message['content'] }}
-                                    </div>
+                                    </a>
+                                    <!-- url 주소일 경우 -->
+                                    {% else %}
+                                    <a class="ui left pointing label text" style="color: blue;" target="_blank" href="{{ message['content'] }}">
+                                        {{ message['content'] }}
+                                    </a>
+                                    {% endif %}
                                 </div>
                             </div>
-                            {% if message['receivers']['view'] == False %}
-                            1
-                            {% endif %}
+                                {% if message['receivers']['view'] == False %}
+                                1
+                                {% endif %}
                             {% else %}
                             <div class="comment" style="text-align: right; margin-right: 20px;">
                                 <div class="content">
                                     <div class="metadata" style="margin-right: 10px;">
                                         <span class="date">18:18</span>
                                     </div>
-                                    <div class="ui right pointing label text" style="background-color: #ffee52">
+                                    <!-- url 주소일 아닐 경우 -->
+                                    {% if not 'http' in message['content'] %}
+                                    <a class="ui right pointing label text" style="background-color: #ffee52">
                                         {{ message['content'] }}
-                                    </div>
+                                    </a>
+                                    <!-- url 주소일 경우 -->
+                                    {% else %}
+                                    <a class="ui right pointing label text" style="background-color: #ffee52; color: blue;" target="_blank" href="{{ message['content'] }}">
+                                        {{ message['content'] }}
+                                    </a>
+                                    {% endif %}
                                 </div>
                             </div>
                             {% endif %}
@@ -89,9 +105,19 @@
             <div class="footer">
                 <table>
                     <thead>
-                        <th><textarea class="input" id="text"></textarea></th>
                         <th>
-                            <button id="submit" class="ui submit button">전송</button>
+                            <textarea class="input" id="text"></textarea>
+                            <div style="font-size: 20px; float: left; margin-bottom: 7px;">
+                                <i style="color: black; margin-left: 7px;
+                                margin-right: 7px;" class="file image outline icon"></i>
+                                <i style="color: black; margin-left: 7px;
+                                margin-right: 7px;" class="paperclip icon"></i>
+                                <i style="color: black; margin-left: 7px;
+                                margin-right: 7px;" class="cloud upload icon"></i>
+                            </div>
+                        </th>
+                        <th>
+                            <button id="submit" class="ui submit button" style="width: 70px; margin-bottom: 70px;">전송</button>
                         </th>
                     </thead>
                 </table>
@@ -100,5 +126,14 @@
         <div id="nickName" style="visibility: hidden;">
             {{ me.nickname }}
         </div>
+        
+        <form>
+            <label for="file-upload" class="custom-file-upload">
+                <i style="color: black; margin-left: 7px; margin-right: 7px;" class="paperclip icon"></i>
+            </label>
+          
+            <input style="display: none;" id="file-upload" type="file">
+        </form>
+
     </body>
 </html>
